@@ -24,28 +24,28 @@ function Form({ onCancel }) {
   const handleServiceNameChange = (event) => {
     const { value } = event.target;
     setServiceName(value);
-    validateForm(value, login, password, url);
+    validateForm();
   };
 
   const handleLoginChange = (event) => {
     const { value } = event.target;
     setLogin(value);
-    validateForm(serviceName, value, password, url);
+    validateForm();
   };
 
   const handlePasswordChange = (event) => {
     const { value } = event.target;
     setPassword(value);
-    validateForm(serviceName, login, value, url);
+    validateForm();
   };
 
   const handleUrlChange = (event) => {
     const { value } = event.target;
     setUrl(value);
-    validateForm(serviceName, login, password, value);
+    validateForm();
   };
 
-  const validateForm = (serviceName, login, password, url) => {
+  const validateForm = () => {
     const isServiceNameValid = serviceName.trim() !== '';
     const isLoginValid = login.trim() !== '';
     const isPasswordValid = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}$/.test(password);
@@ -55,10 +55,9 @@ function Form({ onCancel }) {
      && isLoginValid && isPasswordValid && isUrlValid;
     setIsFormValid(isFormCurrentlyValid);
 
-    // Verificações de senha
     setPasswordValidation({
-      length: password.length >= 8,
-      maxLength: password.length <= 16,
+      length: password.length >= 7,
+      maxLength: password.length <= 15,
       hasLettersAndNumbers: /[a-zA-Z]/.test(password) && /[0-9]/.test(password),
       hasSpecialCharacter: /[^a-zA-Z0-9]/.test(password),
     });
@@ -98,7 +97,8 @@ function Form({ onCancel }) {
         <label htmlFor="password">Senha</label>
         <div>
           <p
-            className={ passwordValidation.length ? validPasswordClass
+            className={ passwordValidation.length && passwordValidation.maxLength
+              ? validPasswordClass
               : invalidPasswordClass }
           >
             Possuir 8 ou mais caracteres
