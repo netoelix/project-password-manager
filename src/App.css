@@ -1,13 +1,30 @@
+* {
+  font-family: sans-serif;
+}
 .valid-password-check {
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: #7a720085;
   color: #aeffb6;
+  padding: 5px;
 }
 
 .invalid-password-check {
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: #7a720085;
   color: #f58989;
+  padding: 5px;
 }
 
 body {
+  text-align: center;
+  background-color: #7a720085;
+}
+
+main {
   align-items: center;
+  background-color: #7a720085;
   display: flex;
   flex-direction: column;
 }
@@ -21,4 +38,44 @@ body {
 .password-div {
   align-items: center;
   display: flex;
+}
+
+li {
+  list-style-type: none;
+}
+
+.password-display {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap
+
+}
+
+.password-manager {
+  border: 2px solid rgba(100, 100, 100, 0.473);
+  border-radius: 20px;
+  padding: 10px;
+  margin: 20px;
+}
+
+button {
+  background-color: #7a720085;
+  border: none;
+  border-radius: 120px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 20px;
+  margin: 5px;
+}
+input {
+  background-color: #7a720085;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+}
+a {
+  color: white;
+  text-decoration: none;
 }

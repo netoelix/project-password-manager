@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-function Form({ onCancel }) {
+function Form({ onCancel, onAddService }) {
   const [serviceName, setServiceName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -12,13 +12,25 @@ function Form({ onCancel }) {
     hasLettersAndNumbers: false,
     hasSpecialCharacter: false,
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const validPasswordClass = 'valid-password-check';
   const invalidPasswordClass = 'invalid-password-check';
 
   const handleClick = (event) => {
     event.preventDefault();
+    const newService = {
+      serviceName,
+      login,
+      password,
+      url,
+    };
+    onAddService(newService);
     onCancel();
+    setServiceName('');
+    setLogin('');
+    setPassword('');
+    setUrl('');
   };
 
   const handleServiceNameChange = (event) => {
@@ -52,7 +64,7 @@ function Form({ onCancel }) {
     const isUrlValid = true;
 
     const isFormCurrentlyValid = isServiceNameValid
-     && isLoginValid && isPasswordValid && isUrlValid;
+    && isLoginValid && isPasswordValid && isUrlValid;
     setIsFormValid(isFormCurrentlyValid);
 
     setPasswordValidation({
@@ -62,6 +74,11 @@ function Form({ onCancel }) {
       hasSpecialCharacter: /[^a-zA-Z0-9]/.test(password),
     });
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="div-form">
       <div>
@@ -86,7 +103,7 @@ function Form({ onCancel }) {
       </div>
       <div className="password-div">
         <input
-          type="password"
+          type={ showPassword ? 'text' : 'password' }
           name=""
           id="password"
           pattern="^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}$"
@@ -104,8 +121,8 @@ function Form({ onCancel }) {
             Possuir 8 ou mais caracteres
           </p>
           <p
-            className={ passwordValidation.maxLength
-                 && passwordValidation.length ? validPasswordClass
+            className={ passwordValidation.maxLength && passwordValidation.length
+              ? validPasswordClass
               : invalidPasswordClass }
           >
             Possuir até 16 caracteres
@@ -129,10 +146,24 @@ function Form({ onCancel }) {
         <label htmlFor="url">URL</label>
       </div>
       <div>
-        <button type="submit" disabled={ !isFormValid }>Cadastrar</button>
+        <button
+          type="button"
+          onClick={ handleClick }
+          disabled={ !isFormValid }
+        >
+          Cadastrar
+        </button>
         <button onClick={ handleClick }>Cancelar</button>
+        <button
+          type="button"
+          data-testid="show-hide-form-password"
+          onClick={ togglePasswordVisibility }
+        >
+          {showPassword ? 'Esconder Senha' : 'Mostrar Senha'}
+        </button>
       </div>
     </div>
   );
 }
+
 export default Form;
