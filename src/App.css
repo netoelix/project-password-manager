@@ -17,3 +17,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+.password-div {
+  align-items: center;
+  display: flex;
+}
