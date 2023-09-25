@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 function Form({ onCancel, onAddService }) {
   const [serviceName, setServiceName] = useState('');
@@ -31,6 +32,13 @@ function Form({ onCancel, onAddService }) {
     setLogin('');
     setPassword('');
     setUrl('');
+
+    Swal.fire({
+      title: 'Serviço cadastrado com sucesso',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false,
+    });
   };
 
   const handleServiceNameChange = (event) => {
