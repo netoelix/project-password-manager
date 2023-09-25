@@ -27,18 +27,20 @@ function Form({ onCancel, onAddService }) {
       url,
     };
     onAddService(newService);
-    onCancel();
     setServiceName('');
     setLogin('');
     setPassword('');
     setUrl('');
-
     Swal.fire({
       title: 'Serviço cadastrado com sucesso',
       icon: 'success',
       timer: 1500,
       showConfirmButton: false,
     });
+  };
+
+  const handleCancelarClick = () => {
+    onCancel();
   };
 
   const handleServiceNameChange = (event) => {
@@ -161,7 +163,7 @@ function Form({ onCancel, onAddService }) {
         >
           Cadastrar
         </button>
-        <button onClick={ handleClick }>Cancelar</button>
+        <button onClick={ handleCancelarClick }>Cancelar</button>
         <button
           type="button"
           data-testid="show-hide-form-password"
